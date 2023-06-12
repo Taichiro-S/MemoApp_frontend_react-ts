@@ -1,7 +1,16 @@
 {
-  "plugins": ["prettier"],
-  "extends": ["react-app", "prettier"],
+  "plugins": ["prettier", "import"],
+  "extends": ["react-app", "plugin:prettier/recommended", "prettier"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": [
+      "error",
+      {
+        "arrowParens": "always",
+        "singleQuote": true,
+        "semi": false,
+        "trailingComma": "all",
+        "tabWidth": 2
+      }
+    ]
   }
 }
