@@ -40,12 +40,20 @@ const Login: FC = () => {
     console.log(res)
   }
   const user = async () => {
-    const res = await api.get('/api/user')
-    console.log(res)
+    await api.get('/sanctum/csrf-cookie').then(() => {
+      api
+        .get('/api/user')
+        .then((res: any) => {
+          console.log(res)
+        })
+        .catch((err: Error) => {
+          console.error(err.message)
+        })
+    })
   }
   return (
     <div>
-      <input type="text" placeholder="aaaaaa" />
+      <input type="text" placeholder="test" />
       <button className="border-2 p-2 bg-blue-400" onClick={register}>
         register
       </button>

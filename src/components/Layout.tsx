@@ -1,21 +1,19 @@
 import { FC, ReactNode, memo } from 'react'
-// import { Header } from 'components'
+import { Header } from 'components'
+import { useLocation } from 'react-router-dom'
 
-type Title = {
-  title: string
+type Props = {
   children: ReactNode
 }
-const Layout: FC<Title> = ({ children }) => {
+const Layout: FC<Props> = ({ children }) => {
+  const location = useLocation()
   return (
     <div className="flex min-h-screen flex-col items-center justify-center font-mono text-gray-800">
-      {/* <Head>
-        <title>{title}</title>
-      </Head>
       <header>
-        {router.pathname !== '/login' && router.pathname !== '/signup' && (
+        {location.pathname !== '/login' && location.pathname !== '/signup' && (
           <Header />
         )}
-      </header> */}
+      </header>
       <main className="flex w-screen flex-1 flex-col items-center justify-center">
         {children}
       </main>
