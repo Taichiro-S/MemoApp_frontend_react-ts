@@ -15,6 +15,7 @@ import { Layout } from 'components'
 import { useQuery } from '@tanstack/react-query'
 import { CalendarEvent } from 'types/types'
 import { api } from 'utils/axios'
+// import { useQueryUser } from 'hooks'
 
 export const getCalendarEvents = async () => {
   const { data } = await api.get<CalendarEvent[]>('/api/calendar_event')
@@ -22,6 +23,8 @@ export const getCalendarEvents = async () => {
 }
 
 const Home = () => {
+  // const { status, data, error } = useQueryUser()
+
   const { data: calendarEvents } = useQuery(
     ['calendarEvents'],
     getCalendarEvents,

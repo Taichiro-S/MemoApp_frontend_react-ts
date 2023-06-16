@@ -2,12 +2,10 @@ import Button from '@mui/material/Button'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import LoginIcon from '@mui/icons-material/Login'
 import { FC } from 'react'
-// import { useQueryUser } from 'hooks'
 
 const Header: FC = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  // const { data, error, status } = useQueryUser()
   return (
     <nav className="bg-neutral-800 h-10 flex items-center">
       <div className="w-screen mx-auto px-4 sm:px-6 lg:px-8">

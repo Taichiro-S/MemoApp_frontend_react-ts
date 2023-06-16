@@ -36,8 +36,16 @@ const Login: FC = () => {
     })
   }
   const logout = async () => {
-    const res = await api.post('/api/logout')
-    console.log(res)
+    await api.get('/sanctum/csrf-cookie').then(() => {
+      api
+        .post('/api/logout')
+        .then((res: any) => {
+          console.log(res)
+        })
+        .catch((err: Error) => {
+          console.error(err.message)
+        })
+    })
   }
   const user = async () => {
     await api.get('/sanctum/csrf-cookie').then(() => {
