@@ -5,3 +5,14 @@ export const api = axios.create({
   headers: { 'X-Requested-With': 'XMLHttpRequest' },
   withCredentials: true,
 })
+
+api.interceptors.response.use(
+  (response) => {
+    return Promise.resolve(response)
+  },
+  (error) => {
+    return Promise.reject({
+      error: error.response,
+    })
+  },
+)

@@ -14,7 +14,7 @@ const Layout: FC<Props> = ({ children }) => {
           <Header />
         )}
       </header>
-      <main className="flex w-screen flex-1 flex-col items-center justify-center">
+      <main className="flex w-screen flex-1 flex-col items-center justify-center bg-slate-100">
         {children}
       </main>
       <footer className="flex h-12 w-full items-center justify-center border-t">

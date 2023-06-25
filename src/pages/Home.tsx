@@ -1,77 +1,28 @@
-// import React, {
-//   useEffect,
-//   useState,
-//   useRef,
-//   forwardRef,
-//   useImperativeHandle,
-// } from 'react'
-// import { formatDate } from '@fullcalendar/core'
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
-import listPlugin from '@fullcalendar/list'
-import { Layout } from 'components'
-import { useQuery } from '@tanstack/react-query'
-import { CalendarEvent } from 'types/types'
-import { api } from 'utils/axios'
-// import { useQueryUser } from 'hooks'
-
-export const getCalendarEvents = async () => {
-  const { data } = await api.get<CalendarEvent[]>('/api/calendar_event')
-  return data
-}
+import { Layout, Spinner } from 'components'
+import { useQueryAuth, useQueryTask } from 'hooks'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
-  // const { status, data, error } = useQueryUser()
+  const navigate = useNavigate()
+  const { status: userStatus, data: user, error: userError } = useQueryAuth()
+  const { status: taskStatus, data: tasks, error: taskError } = useQueryTask()
 
-  const { data: calendarEvents } = useQuery(
-    ['calendarEvents'],
-    getCalendarEvents,
-  )
-  console.log(calendarEvents)
-  return (
-    <Layout>
-      <h1 className="text-2xl font-bold">Home</h1>
-      <div className="demo-app-main">
-        <FullCalendar
-          // ref={calendarRef}
-          plugins={[
-            dayGridPlugin,
-            timeGridPlugin,
-            interactionPlugin,
-            listPlugin,
-          ]}
-          headerToolbar={{
-            left: 'prev,next today',
-            center: 'title',
-            right: 'timeGridWeek,timeGridDay,listWeek',
-          }}
-          slotLabelFormat={{
-            hour: 'numeric',
-            minute: '2-digit',
-            omitZeroMinute: false,
-            meridiem: 'short',
-          }}
-          allDayText="終日"
-          initialView="timeGridWeek"
-          locale="ja"
-          editable={true}
-          selectable={true}
-          dayMaxEvents={true}
-          nowIndicator={true}
-          initialEvents={calendarEvents} // alternatively, use the events setting to fetch from a feed
-          // select={handleDateSelect}
-          // eventContent={renderEventContent} // custom render function
-          // eventClick={handleEventClick}
-          // // eventsSet={handleEvents} // called after events are initialized/added/changed/removed
-          // eventDrop={handleEventDrop}
-          // eventDragStart={handleEventDragStart}
-          // eventResize={handleEventResize}
-        />
-      </div>
-    </Layout>
-  )
+  if (userStatus === 'loading' || taskStatus === 'loading') {
+    return (
+      <Layout>
+        <Spinner />
+      </Layout>
+    )
+  }
+  if (userStatus === 'error' || taskStatus === 'error') {
+    navigate('/login')
+    console.log(userError)
+    return null
+  }
+  if (userStatus === 'success' && taskStatus === 'success') {
+    return <Layout>Home</Layout>
+  }
+  return null
 }
 
 export default Home
