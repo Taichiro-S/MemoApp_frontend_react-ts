@@ -1,21 +1,41 @@
 export type Task = {
-  id: string
-  user_id: string
+  id: number
+  userId: number
+  user: User
   title: string
   description: string
-  priority: string
   completed: boolean
-  start: string
-  end: string
-  created_at: string
-  updated_at: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+export type NewTask = {
+  userId: number
+  title: string
+  description: string
+  completed: boolean
+}
+
+export type UpdatedTask = {
+  id: number
+  page: number
+  title: string
+  description: string
+  completed: boolean
+}
+
+export type DeletedTask = {
+  id: number
+  page: number
 }
 
 export type User = {
-  id: string
+  id: number
   name: string
   email: string
   password: string
+  createdAt: Date
+  updatedAt: Date
 }
 
 export type SignUpUserData = {
@@ -37,4 +57,24 @@ export type errorResponse = {
   request: any
   status: number
   statusText: string
+}
+
+export type paginatedResponse = {
+  data: Task[]
+  links: {
+    first: string
+    last: string
+    next: string | null
+    prev: string | null
+  }
+  meta: {
+    current_page: number
+    from: number
+    last_page: number
+    links: any[]
+    path: string
+    per_page: number
+    to: number
+    total: number
+  }
 }

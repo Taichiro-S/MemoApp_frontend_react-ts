@@ -1,3 +1,6 @@
 export { default as Header } from './Header'
 export { default as Layout } from './Layout'
 export { default as Spinner } from './Spinner'
+export { default as TaskList } from './TaskList'
+export { default as TaskFormDialog } from './TaskFormDialog'
+export { default as Pagination } from './PaginationMUI'

@@ -22,8 +22,7 @@ export const useMutateAuth = () => {
       return res.data
     },
     onSuccess: async () => {
-      const { data: user } = await api.get('/api/user')
-      queryClient.invalidateQueries(['user'], user)
+      queryClient.invalidateQueries(['user'])
     },
     onError: (error: any) => {
       throw new Error('Failed to login', error)
@@ -48,8 +47,7 @@ export const useMutateAuth = () => {
       return res.data
     },
     onSuccess: async () => {
-      const { data: user } = await api.get('/api/user')
-      queryClient.invalidateQueries(['user'], user)
+      queryClient.invalidateQueries(['user'])
     },
     onError: (error: any) => {
       throw new Error('Failed to signup', error)
