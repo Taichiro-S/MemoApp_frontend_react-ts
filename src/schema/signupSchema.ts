@@ -4,12 +4,12 @@ export const signupSchema = yup.object().shape({
   name: yup
     .string()
     .lowercase()
-    // .max(50, '最大50文字です。')
+    .max(50, '最大50文字です。')
     .required('ユーザ名は必須項目です。'),
   email: yup
     .string()
     .lowercase()
-    // .max(100, '最大100文字です。')
+    .max(100, '最大100文字です。')
     .email('正しいメールアドレスを入力してください。')
     .required('メールアドレスは必須項目です。'),
   password: yup

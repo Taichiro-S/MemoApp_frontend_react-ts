@@ -1,17 +1,13 @@
-// import { useQueryClient } from '@tanstack/react-query'
-import {
-  Layout,
-  Pagination,
-  Spinner,
-  TaskList,
-  // TaskFormDialog,
-} from 'components'
-import { useQueryAuth, useQueryTask } from 'hooks'
+import { useQueryClient } from '@tanstack/react-query'
+import { Layout, Pagination, Spinner, TaskList } from 'components'
+import { useQueryAuth, useQueryTask, fetchTask } from 'hooks'
 import { FC, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { usePageStore } from 'stores/pageStore'
+import Skeleton from '@mui/material/Skeleton'
 
 const Home: FC = () => {
+  const queryClient = useQueryClient()
   const page = usePageStore((state) => state.page)
   const setPage = usePageStore((state) => state.setPage)
   const setTotalPage = usePageStore((state) => state.setTotalPage)
@@ -22,7 +18,15 @@ const Home: FC = () => {
     status: taskStatus,
     data: tasks,
     error: taskError,
+    isFetching: isFetchingTasks,
+    isPreviousData: isPreviousTasks,
   } = useQueryTask(page)
+
+  useEffect(() => {
+    if (!isPreviousTasks && tasks?.links.next) {
+      queryClient.prefetchQuery(['task', page + 1], () => fetchTask(page + 1))
+    }
+  }, [page, isPreviousTasks, tasks, queryClient])
 
   useEffect(() => {
     if (tasks?.meta) {
@@ -60,15 +64,18 @@ const Home: FC = () => {
     return <Layout>サーバーとの接続でエラーが発生しました</Layout>
   }
 
-  if (userStatus === 'success' && taskStatus === 'success') {
-    console.log('user', user)
+  if (userStatus === 'success' && taskStatus === 'success' && user && tasks) {
     return (
       <Layout>
         <div className="mb-10">
           <p className="text-lg font-semibold">タスク一覧</p>
         </div>
         <div className="mb-10">
-          <TaskList />
+          {isFetchingTasks ? (
+            <Skeleton variant="rounded" width={600} height={300} />
+          ) : (
+            <TaskList />
+          )}
         </div>
         <div>
           <Pagination />

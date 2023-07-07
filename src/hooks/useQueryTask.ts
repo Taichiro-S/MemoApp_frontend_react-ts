@@ -17,6 +17,7 @@ export const useQueryTask = (page: number) => {
     () => fetchTask(page),
     {
       keepPreviousData: true,
+      staleTime: 5000,
     },
   )
   return result

@@ -11,7 +11,7 @@ import { useIsFetching, useQueryClient } from '@tanstack/react-query'
 import { paginatedResponse, User } from 'types/types'
 import { usePageStore } from 'stores/pageStore'
 import { useTaskStore } from 'stores/taskStore'
-import { Spinner, TaskFormDialog } from 'components'
+import { TaskFormDialog } from 'components'
 import { dateTimeFormat } from 'utils/dateTimeFormat'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -55,7 +55,7 @@ const TaskList: FC = () => {
   if (!user) return null
 
   if (isFetching) {
-    return <Spinner />
+    return null
   }
 
   return (
