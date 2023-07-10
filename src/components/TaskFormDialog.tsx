@@ -16,8 +16,8 @@ import { FC, memo, useEffect, useState } from 'react'
 import { useMutateTask } from 'hooks'
 // import { useQueryClient } from '@tanstack/react-query'
 import { successToast, errorToast } from 'utils/toast'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
+// import FormControlLabel from '@mui/material/FormControlLabel'
+// import Checkbox from '@mui/material/Checkbox'
 import { usePageStore } from 'stores/pageStore'
 // import { useTaskStore } from 'stores/taskStore'
 
@@ -77,11 +77,11 @@ const FormDialog: FC<Props> = (props) => {
     register,
     handleSubmit,
     formState: { errors, touchedFields },
-    setValue,
+    // setValue,
     reset,
-    watch,
+    // watch,
   } = useForm<NewTask>(useFormSettings)
-  const publicValue = watch('completed')
+  // const publicValue = watch('completed')
   useEffect(() => {
     register('completed')
   }, [register])
@@ -97,11 +97,11 @@ const FormDialog: FC<Props> = (props) => {
         },
         {
           onSuccess: () => {
-            successToast('タスクを作成しました')
+            successToast('メモを作成しました')
             handleClose()
           },
           onError: () => {
-            errorToast('タスクの作成に失敗しました')
+            errorToast('メモの作成に失敗しました')
             handleClose()
           },
         },
@@ -112,12 +112,12 @@ const FormDialog: FC<Props> = (props) => {
           { id: task.id, page: page },
           {
             onSuccess: () => {
-              successToast('タスクを削除しました')
+              successToast('メモを削除しました')
 
               handleClose()
             },
             onError: () => {
-              errorToast('タスクの削除に失敗しました')
+              errorToast('メモの削除に失敗しました')
               handleClose()
             },
           },
@@ -133,12 +133,12 @@ const FormDialog: FC<Props> = (props) => {
           },
           {
             onSuccess: () => {
-              successToast('タスクを更新しました')
+              successToast('メモを更新しました')
 
               handleClose()
             },
             onError: () => {
-              errorToast('タスクの更新に失敗しました')
+              errorToast('メモの更新に失敗しました')
               handleClose()
             },
           },
@@ -150,9 +150,11 @@ const FormDialog: FC<Props> = (props) => {
   return (
     <div>
       {!task && (
-        <Button variant="outlined" onClick={handleClickOpen}>
-          タスクを追加
-        </Button>
+        <div className="mb-10">
+          <Button variant="outlined" onClick={handleClickOpen}>
+            メモ追加
+          </Button>
+        </div>
       )}
       {task && isDelete && (
         <IconButton aria-label="delete" onClick={handleClickOpen}>
@@ -168,16 +170,16 @@ const FormDialog: FC<Props> = (props) => {
       <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogTitle>
-            {!task && '新規タスク'}
-            {task && isDelete && 'タスクを削除'}
-            {task && !isDelete && 'タスクを編集'}
+            {!task && '新規メモ'}
+            {task && isDelete && 'メモを削除'}
+            {task && !isDelete && 'メモを編集'}
           </DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
               margin="dense"
               id="title"
-              label="タスク名"
+              label="タイトル"
               type="text"
               fullWidth
               defaultValue={task ? task.title : ''}
@@ -190,7 +192,7 @@ const FormDialog: FC<Props> = (props) => {
             <TextField
               id="description"
               margin="dense"
-              label="説明"
+              label="メモ"
               multiline
               rows={3}
               fullWidth
@@ -200,7 +202,7 @@ const FormDialog: FC<Props> = (props) => {
               error={!!errors?.description}
               disabled={isDelete}
             />
-            <div className="ml-4">
+            {/* <div className="ml-4">
               <FormControlLabel
                 control={
                   <Checkbox
@@ -210,9 +212,9 @@ const FormDialog: FC<Props> = (props) => {
                     disabled={isDelete}
                   />
                 }
-                label="ステータス"
+                label="公開する"
               />
-            </div>
+            </div> */}
             {isDelete && (
               <Alert severity="error">
                 本当に削除してよろしいですか？

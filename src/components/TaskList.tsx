@@ -67,7 +67,7 @@ const TaskList: FC = () => {
             <TableRow>
               <StyledTableCell align="center">タイトル</StyledTableCell>
               <StyledTableCell align="center">ユーザ名</StyledTableCell>
-              <StyledTableCell align="center">ステータス</StyledTableCell>
+              <StyledTableCell align="center">メモ</StyledTableCell>
               <StyledTableCell align="center">作成日</StyledTableCell>
               <StyledTableCell align="center">更新日</StyledTableCell>
               <StyledTableCell align="center">更新</StyledTableCell>
@@ -81,9 +81,7 @@ const TaskList: FC = () => {
                   {task.title}
                 </TableCell>
                 <TableCell align="center">{task.user.name}</TableCell>
-                <TableCell align="center">
-                  {task.completed ? '完了' : '未完了'}
-                </TableCell>
+                <TableCell align="center">{task.description}</TableCell>
                 <TableCell align="center">
                   {dateTimeFormat(task.createdAt)}
                 </TableCell>

@@ -4,7 +4,7 @@ import { useQueryAuth, useQueryTask, fetchTask } from 'hooks'
 import { FC, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { usePageStore } from 'stores/pageStore'
-import Skeleton from '@mui/material/Skeleton'
+// import Skeleton from '@mui/material/Skeleton'
 
 const Home: FC = () => {
   const queryClient = useQueryClient()
@@ -68,14 +68,10 @@ const Home: FC = () => {
     return (
       <Layout>
         <div className="mb-10">
-          <p className="text-lg font-semibold">タスク一覧</p>
+          <p className="text-lg font-semibold">メモ一覧</p>
         </div>
         <div className="mb-10">
-          {isFetchingTasks ? (
-            <Skeleton variant="rounded" width={600} height={300} />
-          ) : (
-            <TaskList />
-          )}
+          {isFetchingTasks ? <Spinner /> : <TaskList />}
         </div>
         <div>
           <Pagination />

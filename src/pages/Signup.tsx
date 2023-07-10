@@ -73,7 +73,7 @@ const Signup: FC = () => {
       <Layout>
         <div>
           <h1 className="text-3xl text-center mb-4 text-neutral-800">
-            ログイン
+            ユーザ登録
           </h1>
         </div>
         <CustomCard>

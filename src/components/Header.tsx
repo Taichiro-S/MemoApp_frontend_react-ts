@@ -32,7 +32,7 @@ const Header: FC = () => {
         <ul className="flex justify-between items-center">
           <Link to="/">
             <p className="text-lg text-neutral-50 font-bold flex items-center">
-              Task
+              Memo App
             </p>
           </Link>
           <div className="flex justify-end items-center">

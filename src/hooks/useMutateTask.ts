@@ -13,7 +13,8 @@ export const useMutateTask = () => {
           user_id: newTask.userId,
           title: newTask.title,
           description: newTask.description,
-          completed: newTask.completed,
+          completed: true,
+          // completed: newTask.completed,
         })
         console.log(res)
       } catch (e: any) {
@@ -37,7 +38,8 @@ export const useMutateTask = () => {
         res = await api.put(`/api/v1/tasks/${updatedTask.id}`, {
           title: updatedTask.title,
           description: updatedTask.description,
-          completed: updatedTask.completed,
+          // completed: updatedTask.completed,
+          completed: true,
         })
         console.log(res)
       } catch (e: any) {
